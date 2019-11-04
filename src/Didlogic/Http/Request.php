@@ -4,17 +4,31 @@
 namespace Didlogic\Http;
 
 
+use Didlogic\Exceptions\RequestException;
+
+/**
+ * Class Request
+ * @package Didlogic\Http
+ */
 class Request
 {
 
     const DEFAULT_API_VERSION = 'v2';
 
-    protected string $method;
-    protected string $endpoint;
-    protected array $headers = [];
-    protected array $params = [];
-    protected ?string $apiVersion;
+    protected $method;
+    protected $endpoint;
+    protected $headers = [];
+    protected $params = [];
+    protected $apiVersion;
 
+    /**
+     * Request constructor.
+     * @param null $method
+     * @param null $endpoint
+     * @param array $params
+     * @param array $headers
+     * @param null $apiVersion
+     */
     public function __construct(
         $method = null,
         $endpoint = null,
@@ -22,7 +36,7 @@ class Request
         array $headers = [],
         $apiVersion = null)
     {
-        $this->setMethod($method)->setEndpoint($endpoint)->setParams($params);
+        $this->setMethod($method)->setEndpoint($endpoint)->setParams($params)->setHeaders($headers);
         $this->apiVersion = $apiVersion ?? self::DEFAULT_API_VERSION;
     }
 
@@ -65,9 +79,22 @@ class Request
     /**
      * @return array
      */
+    public function getDefaultHeaders(): array
+    {
+        return [
+            'User-Agent' => 'didlogic-php',
+            'Accept-Encoding' => '*',
+            'Content-type' => 'application/json'
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function getHeaders(): array
     {
-        return $this->headers;
+        $headers = static::getDefaultHeaders();
+        return array_merge($this->headers, $headers);
     }
 
     /**
@@ -76,7 +103,7 @@ class Request
      */
     public function setHeaders(array $headers): self
     {
-        $this->headers = $headers;
+        $this->headers = array_merge($this->headers, $headers);
         return $this;
     }
 
@@ -106,12 +133,18 @@ class Request
         return $this->apiVersion;
     }
 
+    /**
+     * @return string
+     */
     public function getUrlEncodedBody(): string
     {
         $params = $this->getPostParams();
         return http_build_query($params, null, '&');
     }
 
+    /**
+     * @return array
+     */
     public function getPostParams(): array
     {
         if ($this->getMethod() === 'POST') {
@@ -120,6 +153,10 @@ class Request
         return [];
     }
 
+    /**
+     * @return string
+     * @throws RequestException
+     */
     public function getUrl(): string
     {
         $this->validateMethod();
@@ -134,17 +171,25 @@ class Request
         return $url;
     }
 
+    /**
+     * @throws RequestException
+     */
     public function validateMethod()
     {
         if (!$this->method) {
-            throw new \Exception('HTTP method not specified.');
+            throw new RequestException('HTTP method not specified.');
         }
 
         if (!in_array($this->method, ['GET', 'POST', 'DELETE'])) {
-            throw new \Exception('Invalid HTTP method specified.');
+            throw new RequestException('Invalid HTTP method specified.');
         }
     }
 
+    /**
+     * @param string $url
+     * @param array $params
+     * @return string
+     */
     public static function appendParamsToUrl(string $url, array $params): string
     {
         if (empty($params)) {

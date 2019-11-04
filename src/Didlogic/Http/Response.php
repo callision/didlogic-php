@@ -36,12 +36,18 @@ class Response
         $this->decodeContent();
     }
 
+    /**
+     *
+     */
     public function makeException()
     {
         $this->thrownException = new ResponseException(null, null, null, $this->decodedContent, $this->statusCode);
         echo $this->thrownException->getMessage();
     }
 
+    /**
+     *
+     */
     public function decodeContent()
     {
         $this->decodedContent = json_decode($this->content, true) ?: ["error" => $this->content];

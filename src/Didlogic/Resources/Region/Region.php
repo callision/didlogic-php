@@ -14,6 +14,11 @@ class Region extends Resource
     private $countryId;
     private $cities;
 
+    /**
+     * Region constructor.
+     * @param HttpClient $client
+     * @param $data
+     */
     public function __construct(HttpClient $client, $data)
     {
         parent::__construct($client);
@@ -26,6 +31,9 @@ class Region extends Resource
         $this->countryId = (int)$data['country_id'];
     }
 
+    /**
+     * @return CityInterface
+     */
     public function cities(): CityInterface
     {
         if (!$this->cities) {

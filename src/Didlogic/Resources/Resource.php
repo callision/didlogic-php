@@ -11,11 +11,19 @@ class Resource
     protected $properties = [];
     protected $client;
 
+    /**
+     * Resource constructor.
+     * @param HttpClient $client
+     */
     function __construct(HttpClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @param $name
+     * @return mixed|null
+     */
     public function __get($name)
     {
         if (array_key_exists($name, $this->properties)) {
@@ -30,7 +38,10 @@ class Resource
         return null;
     }
 
-    public function getId()
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }

@@ -3,10 +3,11 @@
 
 namespace Didlogic;
 
+use Didlogic\Exceptions;
 use Didlogic\Http\Request;
 use Didlogic\Http\Response;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 
 class HttpClient
 {
@@ -14,9 +15,9 @@ class HttpClient
     const API_ENDPOINT = "https://didlogic.com/api/";
     const DEFAULT_REQUEST_TIMEOUT = 5;
 
-    protected Client $guzzleClient;
-    protected int $timeout;
-    protected string $apiKey;
+    protected $guzzleClient;
+    protected $timeout;
+    protected $apiKey;
 
     /**
      * HttpClient constructor.
@@ -36,7 +37,7 @@ class HttpClient
      * @param $timeOut
      * @param $request
      * @return Response
-     * @throws GuzzleException
+     * @throws Exceptions\RequestException
      */
     private function send_request($url, $method, $body, $headers, $timeOut, Request $request): Response
     {
@@ -48,7 +49,11 @@ class HttpClient
             'timeout' => $timeOut,
             'connect_timeout' => 60
         ];
-        $rawResponse = $this->guzzleClient->request($method, $url, $options);
+        try {
+            $rawResponse = $this->guzzleClient->request($method, $url, $options);
+        } catch (RequestException $e) {
+            throw new Exceptions\RequestException($e->getMessage());
+        }
         $rawHeaders = $rawResponse->getHeaders();
         $rawBody = $rawResponse->getBody()->getContents();
         $httpStatusCode = $rawResponse->getStatusCode();
@@ -75,7 +80,7 @@ class HttpClient
      * @param Request $request
      * @return Response
      * @throws Exceptions\ResponseException
-     * @throws GuzzleException
+     * @throws Exceptions\RequestException
      */
     public function sendRequest(Request $request): Response
     {
@@ -99,42 +104,45 @@ class HttpClient
     /**
      * @param $uri
      * @param array $params
+     * @param string|null $apiVersion
      * @return Response
      * @throws Exceptions\ResponseException
-     * @throws GuzzleException
+     * @throws Exceptions\RequestException
      */
-    public function fetch($uri, $params = []): Response
+    public function fetch($uri, $params = [], string $apiVersion = null): Response
     {
         $params['apiid'] = $this->apiKey;
-        $request = new Request('GET', $uri, $params);
+        $request = new Request('GET', $uri, $params, [], $apiVersion);
         return $this->sendRequest($request);
     }
 
     /**
      * @param $uri
      * @param array $params
+     * @param string|null $apiVersion
      * @return Response
      * @throws Exceptions\ResponseException
-     * @throws GuzzleException
+     * @throws Exceptions\RequestException
      */
-    public function update($uri, $params = []): Response
+    public function update($uri, $params = [], string $apiVersion = null): Response
     {
         $params['apiid'] = $this->apiKey;
-        $request = new Request('POST', $uri, $params);
+        $request = new Request('POST', $uri, $params, [], $apiVersion);
         return $this->sendRequest($request);
     }
 
     /**
      * @param $uri
      * @param array $params
+     * @param string|null $apiVersion
      * @return Response
      * @throws Exceptions\ResponseException
-     * @throws GuzzleException
+     * @throws Exceptions\RequestException
      */
-    public function delete($uri, $params = []): Response
+    public function delete($uri, $params = [], string $apiVersion = null): Response
     {
         $params['apiid'] = $this->apiKey;
-        $request = new Request('DELETE', $uri, $params);
+        $request = new Request('DELETE', $uri, $params, [], $apiVersion);
         return $this->sendRequest($request);
     }
 }

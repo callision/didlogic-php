@@ -13,6 +13,11 @@ class City extends Resource
     private $countryId;
     private $dids;
 
+    /**
+     * City constructor.
+     * @param HttpClient $client
+     * @param $data
+     */
     public function __construct(HttpClient $client, $data)
     {
         parent::__construct($client);
@@ -26,6 +31,9 @@ class City extends Resource
         $this->countryId = (int)$data['country_id'];
     }
 
+    /**
+     * @return DidInterface
+     */
     public function dids(): DidInterface
     {
         if (!$this->dids) {

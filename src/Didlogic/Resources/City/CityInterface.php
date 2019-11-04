@@ -4,6 +4,8 @@
 namespace Didlogic\Resources\City;
 
 
+use Didlogic\Exceptions\RequestException;
+use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
 use Didlogic\Resources\ResourceInterface;
 
@@ -12,6 +14,12 @@ class CityInterface extends ResourceInterface
     private $countryId;
     private $regionId;
 
+    /**
+     * CityInterface constructor.
+     * @param HttpClient $client
+     * @param $countryId
+     * @param null $regionId
+     */
     public function __construct(HttpClient $client, $countryId, $regionId = null)
     {
         parent::__construct($client);
@@ -24,6 +32,11 @@ class CityInterface extends ResourceInterface
         }
     }
 
+    /**
+     * @return CityList
+     * @throws RequestException
+     * @throws ResponseException
+     */
     public function getList(): CityList
     {
         $response = $this->client->fetch($this->uri);

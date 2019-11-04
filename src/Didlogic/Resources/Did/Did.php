@@ -4,12 +4,19 @@
 namespace Didlogic\Resources\Did;
 
 
+use Didlogic\Exceptions\RequestException;
+use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
 use Didlogic\Resources\Resource;
 
 
 class Did extends Resource
 {
+    /**
+     * Did constructor.
+     * @param HttpClient $client
+     * @param $data
+     */
     public function __construct(HttpClient $client, $data)
     {
         parent::__construct($client);
@@ -30,6 +37,10 @@ class Did extends Resource
         }
     }
 
+    /**
+     * @throws RequestException
+     * @throws ResponseException
+     */
     public function purchase()
     {
         $options = ["did_numbers" => [$this->getNumber()]];

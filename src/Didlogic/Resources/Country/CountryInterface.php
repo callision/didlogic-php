@@ -4,10 +4,10 @@
 namespace Didlogic\Resources\Country;
 
 
+use Didlogic\Exceptions\RequestException;
 use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
 use Didlogic\Resources\ResourceInterface;
-use GuzzleHttp\Exception\GuzzleException;
 
 class CountryInterface extends ResourceInterface
 {
@@ -22,9 +22,9 @@ class CountryInterface extends ResourceInterface
     }
 
     /**
-     * @return array
+     * @return CountryList
+     * @throws RequestException
      * @throws ResponseException
-     * @throws GuzzleException
      */
     public function getList(): CountryList
     {

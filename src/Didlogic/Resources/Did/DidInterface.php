@@ -4,6 +4,7 @@
 namespace Didlogic\Resources\Did;
 
 
+use Didlogic\Exceptions\RequestException;
 use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
 use Didlogic\Resources\ResourceInterface;
@@ -35,9 +36,9 @@ class DidInterface extends ResourceInterface
      * @param array $options
      *   + Valid arguments
      *   + [int] page
-     * @return array
+     * @return DidList
+     * @throws RequestException
      * @throws ResponseException
-     * @throws GuzzleException
      */
     public function getList($options = []): DidList
     {

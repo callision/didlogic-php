@@ -14,11 +14,18 @@ class RestClient
     protected $countries;
     protected $account;
 
+    /**
+     * RestClient constructor.
+     * @param null $apiKey
+     */
     public function __construct($apiKey = null)
     {
         $this->client = new HttpClient($apiKey);
     }
 
+    /**
+     * @return CountryInterface
+     */
     public function countries(): CountryInterface
     {
         if (!isset($this->countries)) {
@@ -27,6 +34,9 @@ class RestClient
         return $this->countries;
     }
 
+    /**
+     * @return AccountInterface
+     */
     public function account(): AccountInterface
     {
         if (!isset($this->account)) {
