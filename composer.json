@@ -1,0 +1,33 @@
+{
+  "name": "pavelsc/didlogic-php",
+  "description": "A PHP SDK for Didlogic",
+  "keywords": [
+    "didlogic",
+    "api"
+  ],
+  "homepage": "http://github.com/pavelsc/didlogic-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pavel K",
+      "email": "pavelsc@gmail.com",
+      "homepage": "http://github.com/pavelsc",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/pavelsc/didlogic-php/issues",
+    "source": "https://github.com/pavelsc/didlogic-php"
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ],
+    "exclude-from-classmap": []
+  },
+  "require-dev": {
+  }
+}
