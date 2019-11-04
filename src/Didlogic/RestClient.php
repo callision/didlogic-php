@@ -6,12 +6,14 @@ namespace Didlogic;
 
 use Didlogic\Resources\Account\AccountInterface;
 use Didlogic\Resources\Country\CountryInterface;
+use Didlogic\Resources\SipAccount\SipAccountInterface;
 
 class RestClient
 {
 
     protected $client;
     protected $countries;
+    protected $sipAccounts;
     protected $account;
 
     /**
@@ -43,6 +45,17 @@ class RestClient
             $this->account = new AccountInterface($this->client);
         }
         return $this->account;
+    }
+
+    /**
+     * @return SipAccountInterface
+     */
+    public function sipAccounts(): SipAccountInterface
+    {
+        if (!isset($this->sipAccounts)) {
+            $this->sipAccounts = new SipAccountInterface($this->client);
+        }
+        return $this->sipAccounts;
     }
 
 }

@@ -63,6 +63,7 @@ class HttpClient
     /**
      * @param Request $request
      * @return array
+     * @throws Exceptions\RequestException
      */
     public function prepareRequestMessage(Request $request)
     {
@@ -125,6 +126,21 @@ class HttpClient
      * @throws Exceptions\RequestException
      */
     public function update($uri, $params = [], string $apiVersion = null): Response
+    {
+        $params['apiid'] = $this->apiKey;
+        $request = new Request('PUT', $uri, $params, [], $apiVersion);
+        return $this->sendRequest($request);
+    }
+
+    /**
+     * @param $uri
+     * @param array $params
+     * @param string|null $apiVersion
+     * @return Response
+     * @throws Exceptions\RequestException
+     * @throws Exceptions\ResponseException
+     */
+    public function create($uri, $params = [], string $apiVersion = null): Response
     {
         $params['apiid'] = $this->apiKey;
         $request = new Request('POST', $uri, $params, [], $apiVersion);
