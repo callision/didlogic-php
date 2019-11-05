@@ -28,7 +28,7 @@ class Did extends Resource
             "channels" => (int)$data['channels'],
             "country" => (string)$data['country'],
             "city" => (string)$data['city'],
-            "smsEnabled" => (boolean)$data['']
+            "smsEnabled" => (boolean)$data['sms_enabled']
         ];
         if (isset($data['required_documents']) && is_array($data['required_documents'])) {
             $this->properties['requiredDocuments'] = array_map(function ($item) {
