@@ -36,7 +36,7 @@ class AuthorizedIpInterface extends ResourceInterface
      */
     public function getList(): AuthorizedIpList
     {
-        $response = $this->client->fetch($this->uri);
+        $response = $this->client->fetch($this->uri, [], 'v1');
         return new AuthorizedIpList($response->getContent()['allowed_ips']);
     }
 
@@ -48,7 +48,7 @@ class AuthorizedIpInterface extends ResourceInterface
      */
     public function create($ip): AuthorizedIpList
     {
-        $response = $this->client->create($this->uri, ['ip' => $ip]);
+        $response = $this->client->create($this->uri, ['ip' => $ip], 'v1');
         return new AuthorizedIpList($response->getContent()['allowed_ips']);
     }
 
@@ -60,7 +60,7 @@ class AuthorizedIpInterface extends ResourceInterface
      */
     public function delete($ip)
     {
-        $this->client->delete($this->uri, ['ip' => $ip]);
+        $this->client->delete($this->uri, ['ip' => $ip], 'v1');
         return true;
     }
 }
