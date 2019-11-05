@@ -7,14 +7,32 @@ namespace Didlogic\Resources\SipAccount;
 use Didlogic\Exceptions\RequestException;
 use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
+use Didlogic\Resources\AuthorizedIp\AuthorizedIpInterface;
 use Didlogic\Resources\Resource;
 
 /**
- * @property mixed|null params
+ * @property array params
+ * @property string name
+ * @property string callerid
+ * @property string label
+ * @property double charge
+ * @property int talkTime
+ * @property bool rewriteEnabled
+ * @property string rewriteCond
+ * @property string rewritePrefix
+ * @property bool didinfoEnabled
+ * @property bool ipRestrict
+ * @property bool callRestrict
+ * @property int callLimit
+ * @property bool channelsRestrict
+ * @property int maxChannels
+ * @property bool costLimit
+ * @property double maxCallCost
  */
 class SipAccount extends Resource
 {
     private $interface;
+    private $authorizedIpInterface;
 
     /**
      * SipAccount constructor.
@@ -81,5 +99,16 @@ class SipAccount extends Resource
     public function delete()
     {
         return $this->getInterface()->delete($this->params);
+    }
+
+    /**
+     * @return AuthorizedIpInterface
+     */
+    public function authorizedIps(): AuthorizedIpInterface
+    {
+        if (!$this->authorizedIpInterface) {
+            $this->authorizedIpInterface = new AuthorizedIpInterface($this->client, $this->name);
+        }
+        return $this->authorizedIpInterface;
     }
 }
