@@ -31,7 +31,7 @@ class Did extends Resource
             "smsEnabled" => (boolean)$data['']
         ];
         if (isset($data['required_documents']) && is_array($data['required_documents'])) {
-            $this->properties['required_documents'] = array_map(function ($item) {
+            $this->properties['requiredDocuments'] = array_map(function ($item) {
                 return ['id' => (int)$item['id'], (string)$item['name']];
             }, $data['required_documents']);
         }
