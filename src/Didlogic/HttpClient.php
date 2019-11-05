@@ -9,14 +9,33 @@ use Didlogic\Http\Response;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+/**
+ * Class HttpClient
+ * @package Didlogic
+ */
 class HttpClient
 {
 
+    /**
+     *
+     */
     const API_ENDPOINT = "https://didlogic.com/api/";
+    /**
+     *
+     */
     const DEFAULT_REQUEST_TIMEOUT = 5;
 
+    /**
+     * @var Client
+     */
     protected $guzzleClient;
+    /**
+     * @var int
+     */
     protected $timeout;
+    /**
+     * @var string
+     */
     protected $apiKey;
 
     /**

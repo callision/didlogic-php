@@ -31,7 +31,13 @@ use Didlogic\Resources\Resource;
  */
 class SipAccount extends Resource
 {
+    /**
+     * @var SipAccountInterface
+     */
     private $interface;
+    /**
+     * @var AuthorizedIpInterface
+     */
     private $authorizedIpInterface;
 
     /**
@@ -65,7 +71,7 @@ class SipAccount extends Resource
     /**
      * @param $value
      */
-    public function setPassword($value)
+    protected function setPassword($value)
     {
         $this->properties['password'] = $value;
     }

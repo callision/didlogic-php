@@ -15,6 +15,9 @@ use Didlogic\Resources\ResourceInterface;
  */
 class AuthorizedIpInterface extends ResourceInterface
 {
+    /**
+     * @var string
+     */
     private $sipAccountName;
 
     /**

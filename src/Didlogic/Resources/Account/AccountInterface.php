@@ -11,9 +11,17 @@ use Didlogic\Resources\Did\Did;
 use Didlogic\Resources\Did\DidList;
 use Didlogic\Resources\ResourceInterface;
 
+/**
+ * Class AccountInterface
+ * @package Didlogic\Resources\Account
+ */
 class AccountInterface extends ResourceInterface
 {
 
+    /**
+     * AccountInterface constructor.
+     * @param HttpClient $client
+     */
     public function __construct(HttpClient $client)
     {
         parent::__construct($client);

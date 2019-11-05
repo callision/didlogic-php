@@ -16,7 +16,13 @@ use Didlogic\Resources\City\CityInterface;
  */
 class Country extends Resource
 {
+    /**
+     * @var RegionInterface
+     */
     private $regions;
+    /**
+     * @var CityInterface
+     */
     private $cities;
 
     /**

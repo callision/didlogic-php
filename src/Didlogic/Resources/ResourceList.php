@@ -4,8 +4,15 @@
 namespace Didlogic\Resources;
 
 
+/**
+ * Class ResourceList
+ * @package Didlogic\Resources
+ */
 class ResourceList implements \IteratorAggregate
 {
+    /**
+     * @var array
+     */
     private $resources;
 
     /**

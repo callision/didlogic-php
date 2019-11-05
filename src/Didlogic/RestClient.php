@@ -8,12 +8,28 @@ use Didlogic\Resources\Account\AccountInterface;
 use Didlogic\Resources\Country\CountryInterface;
 use Didlogic\Resources\SipAccount\SipAccountInterface;
 
+/**
+ * Class RestClient
+ * @package Didlogic
+ */
 class RestClient
 {
 
+    /**
+     * @var HttpClient
+     */
     protected $client;
+    /**
+     * @var CountryInterface
+     */
     protected $countries;
+    /**
+     * @var SipAccountInterface
+     */
     protected $sipAccounts;
+    /**
+     * @var AccountInterface
+     */
     protected $account;
 
     /**

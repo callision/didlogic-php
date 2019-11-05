@@ -11,8 +11,17 @@ use Didlogic\HttpClient;
  */
 class Resource
 {
+    /**
+     * @var int|null
+     */
     protected $id = null;
+    /**
+     * @var array
+     */
     protected $properties = [];
+    /**
+     * @var HttpClient
+     */
     protected $client;
 
     /**

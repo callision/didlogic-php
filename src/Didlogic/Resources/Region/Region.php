@@ -9,9 +9,15 @@ use Didlogic\Resources\City\CityInterface;
 use Didlogic\Resources\Resource;
 
 
+/**
+ * @property int countryId
+ * @property string name
+ */
 class Region extends Resource
 {
-    private $countryId;
+    /**
+     * @var CityInterface
+     */
     private $cities;
 
     /**
@@ -28,7 +34,6 @@ class Region extends Resource
             'name' => (string)$data['name']
         ];
         $this->id = (int)$data['id'];
-        $this->countryId = (int)$data['country_id'];
     }
 
     /**

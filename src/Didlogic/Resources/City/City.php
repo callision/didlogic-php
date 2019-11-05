@@ -8,9 +8,16 @@ use Didlogic\HttpClient;
 use Didlogic\Resources\Did\DidInterface;
 use Didlogic\Resources\Resource;
 
+/**
+ * @property int countryId
+ * @property string name
+ * @property int areaCode
+ */
 class City extends Resource
 {
-    private $countryId;
+    /**
+     * @var DidInterface
+     */
     private $dids;
 
     /**
@@ -28,7 +35,6 @@ class City extends Resource
             'areaCode' => (int)$data['area_code']
         ];
         $this->id = (int)$data['id'];
-        $this->countryId = (int)$data['country_id'];
     }
 
     /**
