@@ -7,11 +7,31 @@ namespace Didlogic\Resources\Did;
 use Didlogic\Exceptions\RequestException;
 use Didlogic\Exceptions\ResponseException;
 use Didlogic\HttpClient;
+use Didlogic\Resources\Destination\DestinationInterface;
 use Didlogic\Resources\Resource;
 
 
+/**
+ * @property string number
+ * @property double activation
+ * @property double monthly
+ * @property double perMinute
+ * @property int channels
+ * @property string country
+ * @property string city
+ * @property boolean smsEnabled
+ */
 class Did extends Resource
 {
+    /**
+     * @var bool
+     */
+    private $purchased = false;
+    /**
+     * @var DestinationInterface
+     */
+    private $destinationInterface;
+
     /**
      * Did constructor.
      * @param HttpClient $client
@@ -43,7 +63,27 @@ class Did extends Resource
      */
     public function purchase()
     {
-        $options = ["did_numbers" => [$this->getNumber()]];
+        $options = ["did_numbers" => [$this->number]];
         $response = $this->client->update('buy/purchase', $options);
+        $this->purchased = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPurchased()
+    {
+        return $this->purchased;
+    }
+
+    /**
+     * @return DestinationInterface
+     */
+    public function destinations(): DestinationInterface
+    {
+        if (!$this->destinationInterface) {
+            $this->destinationInterface = new DestinationInterface($this->client, $this->number);
+        }
+        return $this->destinationInterface;
     }
 }

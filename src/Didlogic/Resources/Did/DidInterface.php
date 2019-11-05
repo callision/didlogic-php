@@ -11,6 +11,10 @@ use Didlogic\Resources\ResourceInterface;
 use GuzzleHttp\Exception\GuzzleException;
 
 
+/**
+ * Class DidInterface
+ * @package Didlogic\Resources\Did
+ */
 class DidInterface extends ResourceInterface
 {
     private $countryId;
@@ -53,17 +57,17 @@ class DidInterface extends ResourceInterface
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getTotalPages()
+    public function getTotalPages(): int
     {
         return $this->totalPages;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getCurrentPage()
+    public function getCurrentPage(): int
     {
         return $this->currentPage;
     }
