@@ -29,7 +29,7 @@ class DidInterface extends ResourceInterface
         parent::__construct($client);
         $this->countryId = $countryId;
         $this->cityId = $cityId;
-        $this->uri = "buy/coutries/{$countryId}/cities/{$cityId}/dids";
+        $this->uri = "buy/countries/{$countryId}/cities/{$cityId}/dids";
     }
 
     /**
