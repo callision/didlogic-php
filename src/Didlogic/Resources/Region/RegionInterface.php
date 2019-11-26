@@ -27,7 +27,7 @@ class RegionInterface extends ResourceInterface
     {
         parent::__construct($client);
         $this->countryId = $countryId;
-        $this->uri = "buy/countries/{$countryId}/regions";
+        $this->uri = "buy/countries/{$countryId}/regions.json";
     }
 
     /**

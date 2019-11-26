@@ -18,7 +18,7 @@ class CountryInterface extends ResourceInterface
     public function __construct(HttpClient $client)
     {
         parent::__construct($client);
-        $this->uri = "buy/countries";
+        $this->uri = "buy/countries.json";
     }
 
     /**

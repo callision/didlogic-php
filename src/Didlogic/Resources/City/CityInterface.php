@@ -25,10 +25,10 @@ class CityInterface extends ResourceInterface
         parent::__construct($client);
         $this->countryId = $countryId;
         if (!$regionId) {
-            $this->uri = "buy/countries/{$countryId}/cities";
+            $this->uri = "buy/countries/{$countryId}/cities.json";
         } else {
             $this->regionId = $regionId;
-            $this->uri = "buy/countries/{$countryId}/regions/{$regionId}cities";
+            $this->uri = "buy/countries/{$countryId}/regions/{$regionId}/cities.json";
         }
     }
 
