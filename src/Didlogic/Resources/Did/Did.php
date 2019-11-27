@@ -52,7 +52,7 @@ class Did extends Resource
         ];
         if (isset($data['required_documents']) && is_array($data['required_documents'])) {
             $this->properties['requiredDocuments'] = array_map(function ($item) {
-                return ['id' => (int)$item['id'], (string)$item['name']];
+                return ['id' => (int)$item['type'], (string)$item['name']];
             }, $data['required_documents']);
         }
     }

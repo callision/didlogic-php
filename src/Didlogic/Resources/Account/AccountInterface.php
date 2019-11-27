@@ -56,7 +56,7 @@ class AccountInterface extends ResourceInterface
     {
         $response = $this->client->fetch('buy/search.json', $options);
         $dids = [];
-        foreach ($response->getContent()['dids'] as $did) {
+        foreach ($response->getContent()['dids']['dids'] as $did) {
             $dids[] = new Did($this->client, $did);
         }
         return new DidList(...$dids);
