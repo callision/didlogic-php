@@ -54,7 +54,7 @@ class AccountInterface extends ResourceInterface
      */
     public function searchNumbers(array $options): DidList
     {
-        $response = $this->client->fetch('buy/search', $options);
+        $response = $this->client->fetch('buy/search.json', $options);
         $dids = [];
         foreach ($response->getContent()['dids'] as $did) {
             $dids[] = new Did($this->client, $did);
